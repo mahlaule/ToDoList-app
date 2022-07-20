@@ -1,11 +1,15 @@
 
 import React,{useState} from 'react';
+import GoogleButton from 'react-google-button';
+
 import {useHistory} from 'react-router-dom'
 import {Link} from 'react-router-dom';
 import {signInWithEmailAndPassword} from "firebase/auth"
+import { signInWithGoogle } from '../config/firebase';
 import {auth} from "../config/firebase"
 import "../Css/login.css"
 import welImg from "../images/welcom.jpg"
+
 
 function Login(){
 const [email, setEmail]= useState("");
@@ -30,7 +34,12 @@ console.log(err)
 
 
      
-    })
+    });
+
+
+
+
+    
 
     return(
 
@@ -51,6 +60,13 @@ console.log(err)
              
                 
                 </span>
+                <h1 className='or'>OR</h1>
+                <div className='googlebtn'>
+                <GoogleButton
+  onClick={signInWithGoogle}/>
+            </div>
+                
+            
                 </div>
             </div>
 

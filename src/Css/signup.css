@@ -9,19 +9,49 @@ input{
 .btn{
     margin-top:30px;
     margin-left: 150px;
-    width:150px;
-    padding: 20px;
-    background-color:  #00008b;
+    width:248px;
+    height:50px;
+    
+    background-color:  #4169E1;
     color:white;
+    border:1px solid blue;
 }
-.container{
+.container2{
+    display: flex;
     width:100%;
-    height:1000px;
+    height:50%;
+    margin-left: 50px;
+    margin-top:50px ;
 }
 .cont{
     background-color: white;
-    width:850px;
+    width:800px;
+    height: 650px;
+}
+.img-cont{
+    height: 300px;
+    
 }
 img{
-    height:500px;
+    height: 650px;
+}
+.headerr{
+    margin-left: 140px;
+    font-weight: bold;
+font-family: 'Courier New', Courier, monospace;
+    text-transform: capitalize;
+    text-shadow: 2px 2px blue;
+}
+h3{
+    margin-left: 240px;
+}
+p{
+    margin-left: 240px;
+}
+.spar{
+    margin-left: 240px;
+    margin-top:60px;
+    text-decoration: none;
+    color:#4169E1;
+
 }
