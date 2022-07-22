@@ -1,0 +1,35 @@
+body{
+    background-color:green;
+}
+.pic{
+    width:150px;
+    height:100px;
+    border-radius:50%;
+    margin-right: 50px;
+}
+.Nav{
+    display:flex;
+    background-color: white;
+    border:5px solid gray;
+}
+button{
+    margin-left: 1100px;
+    width:130px;
+    height: 50px;
+    margin-top: 20px;
+    background-color: blue;
+    color:white;
+    border:1px solid blue;
+}
+.naming{
+  
+    margin-right: 30px;
+    text-decoration: wavy;
+    margin-top: 30px;
+    text-transform: capitalize;
+    text-align: center;
+    color: gray;
+    
+    
+
+}
