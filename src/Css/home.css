@@ -1,5 +1,5 @@
 body{
-    background-color:green;
+    background-color:white;
 }
 .pic{
     width:150px;
@@ -32,4 +32,9 @@ button{
     
     
 
+}
+.fields{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
 }

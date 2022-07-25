@@ -1,6 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+//import firebase from '../config/firebase'
 
 import {getAuth, GoogleAuthProvider,signInWithPopup} from "firebase/auth"
 
@@ -30,3 +31,6 @@ export const signInWithGoogle = ()=>{
 
 
 }
+//const db = firebase.firestore();
+
+//export {db};
