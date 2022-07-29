@@ -1,11 +1,13 @@
 import "../Css/home.css";
 import logo from "../images/log.jpg";
-import {FormHelperText, InputLabel, TextField,Select,MenuItem, FormControl,Button,List , ListItem, ListItemAvatar, ListItemText} from "@mui/material";
+import {FormHelperText,DeleteIcon,deleteDoc, InputLabel, TextField,Select,MenuItem, FormControl,Button,List , ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import { useEffect, useState } from "react";
 import {db} from "../config/firebase"
 import firebase from 'firebase/compat/app';
 import {getFirestore} from "firebase/firestore"
 import { collection,doc,query,where, addDoc,getDoc,getDocs, onSnapshot, serverTimestamp } from "firebase/firestore"; 
+import TodoListItem from "./todo";
+import React from "react";
 
 
 
@@ -54,7 +56,7 @@ const selectionChangeHandler = (event)=>{
 
 
     return(
-
+      
         <div>
             <div class = "Nav">
                 
@@ -87,16 +89,21 @@ const selectionChangeHandler = (event)=>{
         
            
             </div>
-        
+           
+  {todos.map((todo)=>(
+          <TodoListItem todo={todo.todo} inprogress={todo.inprogress}/> 
+    
+                 ))}
+            
             </div>
-            <ul>
-            {todos.map((todo)=>(
-                <p>{todo.todo}</p>
-            ))}
-            </ul>
-
+            
+           
+         
+            
         </div>
+        
     )
 }
+
 
 export default Home;
