@@ -8,24 +8,28 @@ import Home from "./home";
 import React from "react";
 import { async } from "@firebase/util";
 
-export default function TodoListItem({todo,inprogress,id}){
+export default function TodoListItem({todo,inprogress,todoInput,id}){
     
 
     function toggleInProgress(){
         
       db.collection("todos").doc(id).update({
-        inprogress:!inprogress
+        inprogress:!inprogress,
 
       })
 
 }
 function deleteTodo(){
-   
+    
+//db.collection("todos").doc(id).delete();
 
-    deleteDoc(doc(db, "todos", "inprogress"));
-
-
+const docRef = deleteDoc(collection(db, "todos"),{
+inprogress: "false",
+timestamp:  serverTimestamp(),
+todo:todoInput,
 }
+)}
+
     
 
     return (
@@ -37,7 +41,7 @@ function deleteTodo(){
        
         </ListItem>
         <Button onClick={toggleInProgress}>{inprogress ? "DONE": "UNDONE"}</Button>
-        <Button onClick={ deleteTodo}>completed</Button>
+        <Button onClick={ deleteTodo}>delete</Button>
         </div>
     )
     }
