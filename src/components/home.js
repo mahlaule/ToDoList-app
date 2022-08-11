@@ -1,109 +1,90 @@
 import "../Css/home.css";
 import logo from "../images/log.jpg";
-import {FormHelperText,DeleteIcon,deleteDoc, InputLabel, TextField,Select,MenuItem, FormControl,Button,List , ListItem, ListItemAvatar, ListItemText} from "@mui/material";
+import { FormHelperText, DeleteIcon, deleteDoc, InputLabel, TextField, Select, MenuItem, FormControl, Button, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import { useEffect, useState } from "react";
-import {db} from "../config/firebase"
+import { db } from "../config/firebase"
 import firebase from 'firebase/compat/app';
-import {getFirestore} from "firebase/firestore"
-import { collection,doc,query,where, addDoc,getDoc,getDocs, onSnapshot, serverTimestamp } from "firebase/firestore"; 
+import { getFirestore } from "firebase/firestore"
+import { collection, doc, query, where, addDoc, getDoc, getDocs,orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
+import Todo from '../components/todo';
 import TodoListItem from "./todo";
 import React from "react";
 
 
 
+const q=query(collection(db,'TODO'),orderBy('timestamp','desc'));
 
 
+function Home() {
+   
+  const [todos,setTodos]=useState([]);
+  const [input, setInput]=useState('');
+  useEffect(() => {
+          onSnapshot(q,(snapshot)=>{
+              setTodos(snapshot.docs.map(doc=>({
+                id: doc.id,
+                item: doc.data()
+              })))
+         })
+    },[input]);
+  const addTodo=(e)=>{
+    e.preventDefault();
+       addDoc(collection(db,'TODO'),{
+         todo:input,
+         timestamp: serverTimestamp()
+       })
+       console.log('click')
+      setInput('')
+  };
+  console.log(todos);
+  const [selected, setSelected] = useState("");
+  const selectionChangeHandler = (event) => {
 
-function Home(){
-    const [todos, setTodos] = useState([]);
-    const [todoInput, setToDoInput] = useState("");
-    useEffect(()=>{
-        onSnapshot(collection(db,'todos'),(snapshot)=>{
-            setTodos(snapshot.docs.map(doc => doc.data()))
-            })
-            }, [todoInput])
-            
-    function getTodo(){
-
-        
-
-    }
-
-        function AddToDo(e){
-   e.preventDefault();
-                                 //db.collection("todos").add({
-            //inprogress:true,
-            //timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            //todo:todoInput,
-
-        //})
-        const docRef =  addDoc(collection(db, "todos"), {
-            inprogress: "false",
-            timestamp:  serverTimestamp(),
-            todo:todoInput,
-          });
-          
-          
-
-    }
-
-const [selected, setSelected] = useState("");
-const selectionChangeHandler = (event)=>{
-
-    setSelected(event.target.value)
-};
+      setSelected(event.target.value)
+  };
 
 
+  return (
+    <div>
+    <div className="Nav">
 
-    return(
-      
-        <div>
-            <div class = "Nav">
-                
-                    <h3 className="naming">kevin mahlauli</h3>
-                
-            <img src={logo} alt="logo" className="pic"/>
-            <button>logout</button>
+                <h3 className="naming">kevin mahlauli</h3>
+
+                <img src={logo} alt="logo" className="pic" />
+                <button>logout</button>
             </div>
-            <div className="container-box">
-                <div className="fields">
-                    
-                <TextField id="outlined-basic" label="Add New Task" variant="outlined" style={{width:"30%"}} onChange={(e)=>{setToDoInput(e.target.value); console.log(`this is the todo input ${e.target.value}`)} }/>
-            
-               
-                <FormControl variant="outlined">
-         
-            <InputLabel shrink>priority</InputLabel>
-        
-            <Select label ="priority" value={selected} className="select" onChange={selectionChangeHandler}>
-                <MenuItem value={1}>low</MenuItem>
-                <MenuItem value={2}>medium</MenuItem>
-                <MenuItem value={3}>High</MenuItem>
-            </Select>
-            
-            <FormHelperText>select status</FormHelperText>
-            
-            </FormControl>
-            
-            <Button type ="submit" variant="contained"  className="bton" style={{marginLeft:"10px",backgroundColor:"green", width:"30px",height:"55px" }}  onClick={AddToDo}>+</Button>
-        
-           
-            </div>
-           
-  {todos.map((todo)=>(
-          <TodoListItem todo={todo.todo} inprogress={todo.inprogress}/> 
     
-                 ))}
-            
-            </div>
-            
-           
-         
-            
-        </div>
-        
-    )
+    <div className="App">
+     <h2> Todo List App</h2>
+      <form>
+     
+         <TextField id="outlined-basic" label="Add new Task" variant="outlined" style={{marginLeft:"0px"}} size="small" value={input}
+         onChange={e=>setInput(e.target.value)} />
+         <FormControl variant="outlined">
+
+<InputLabel shrink>priority</InputLabel>
+
+<Select label="priority" value={selected} className="select" style={{marginLeft:"5px",height:"40px"}} onChange={selectionChangeHandler}>
+    <MenuItem value={1}>low</MenuItem>
+    <MenuItem value={2}>medium</MenuItem>
+    <MenuItem value={3}>High</MenuItem>
+</Select>
+
+<FormHelperText>select status</FormHelperText>
+
+</FormControl>
+        <Button variant="contained" color="primary" style={{marginLeft:"15px" ,border:"1px solid blue", width:"15px"}} onClick={addTodo}  >+</Button>
+      </form>
+      <div class ="listing">
+      <ul>
+          {todos.map(item=> <Todo key={item.id} arr={item} />)}
+      </ul>
+      </div>
+    </div>
+    </div>
+    
+    
+  );
 }
-
-
+ 
 export default Home;

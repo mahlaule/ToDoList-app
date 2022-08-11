@@ -8,41 +8,21 @@ import Home from "./home";
 import React from "react";
 import { async } from "@firebase/util";
 
-export default function TodoListItem({todo,inprogress,todoInput,id}){
-    
-
-    function toggleInProgress(){
-        
-      db.collection("todos").doc(id).update({
-        inprogress:!inprogress,
-
-      })
-
-}
-function deleteTodo(){
-    
-//db.collection("todos").doc(id).delete();
-
-const docRef = deleteDoc(collection(db, "todos"),{
-inprogress: "false",
-timestamp:  serverTimestamp(),
-todo:todoInput,
-}
-)}
 
     
 
+  const Todo=({arr})=>{
     return (
-        <div style={{display:"flex"}}>
-        <ListItem style={{width:"65%"}}>
-            <ListItemText style={{marginLeft:"600px", border:"2px solid gray"}} primary ={todo} secondary={inprogress ?  "in progress": "completed"}/>
-
+        <List className="todo__list"> 
+            <ListItem style={{width:"90%"}}>
+                <ListItemAvatar />
+                    <ListItemText  style={{marginRight:"400px", border:"2px solid gray"}} primary={arr.item.todo} secondary={arr.item.todo} />
+            </ListItem>
             
-       
-        </ListItem>
-        <Button onClick={toggleInProgress}>{inprogress ? "DONE": "UNDONE"}</Button>
-        <Button onClick={ deleteTodo}>delete</Button>
-        </div>
+            <Button variant="contained" color="primary" onClick={() => {deleteDoc(doc(db,'TODO',arr.id))}} >completed</Button>
+            
+        </List> 
     )
-    }
-    
+};
+
+export default Todo;

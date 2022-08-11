@@ -7,17 +7,22 @@ body{
     border-radius:50%;
     margin-right: 50px;
 }
-.Nav{
-    display:flex;
+.App{
+   
     background-color: white;
     border:5px solid gray;
+    height: 40%;
+   
+}
+.Nav{
+    display:flex;
 }
 button{
-    margin-left: 1100px;
-    width:130px;
-    height: 50px;
+    margin-left: 1200px;
+    width:90px;
+    height: 40px;
     margin-top: 20px;
-    background-color: blue;
+    background-color:aqua;
     color:white;
     border:1px solid blue;
 }
@@ -42,4 +47,17 @@ button{
 }
 .select{
     margin-left:10px;
+}
+
+form{
+    margin-top: 10px;
+}
+.todo__list{
+    display:flex;
+    background-color: aqua;
+    margin-top: 100px;
+}
+.listing{
+    margin-top: 200px;
+    margin-right: 200px;
 }
