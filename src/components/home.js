@@ -1,11 +1,12 @@
 import "../Css/home.css";
 import logo from "../images/log.jpg";
-import { FormHelperText, DeleteIcon, deleteDoc, InputLabel, TextField, Select, MenuItem, FormControl, Button, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import {useHistory} from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase"
 import firebase from 'firebase/compat/app';
 import { getFirestore } from "firebase/firestore"
 import { collection, doc, query, where, addDoc,updateDoc, getDoc, getDocs,orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { FormHelperText, DeleteIcon, InputLabel, TextField, Select, MenuItem, FormControl, Button, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import Todo from '../components/todo';
 import TodoListItem from "./todo";
 import React from "react";
@@ -16,13 +17,12 @@ const q=query(collection(db,'TODO'),orderBy('timestamp','desc'));
 
 
 function Home() {
-  const logout = () => {
-    localStorage.removeItem('token-info');
-    setIsLoggedin(false);
-  };
+  
   const [todos,setTodos]=useState([]);
   const [input, setInput]=useState('');
-  const [isLoggedin, setIsLoggedin] = useState(false);
+ const [isLoggedin, setIsLoggedin] = useState(false);
+
+ 
  
   
   useEffect(() => {
@@ -49,6 +49,8 @@ function Home() {
 
       setSelected(event.target.value)
   };
+
+  
  
 
 
@@ -59,7 +61,7 @@ function Home() {
                 <h3 className="naming">kevin mahlauli</h3>
 
                 <img src={logo} alt="logo" className="pic" />
-                <button onClick={logout} >logout</button>
+                <button>logout</button>
             </div>
     
     <div className="App">
